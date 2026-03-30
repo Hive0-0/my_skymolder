@@ -83,9 +83,9 @@ window.addEventListener("load", () => {
     if(!bubbles) return;
 
     const images = [
-        "/img/Frame_285.png",
-        "/img/Frame_279.png",
-        "/img/Frame_277.png"
+        "img/Frame_285.png",
+        "img/Frame_279.png",
+        "img/Frame_277.png"
     ]
 
     let total = 12
@@ -410,9 +410,9 @@ if(rainCloud && rainContainer) {
     function createDrop() {
 
         const images = [
-            "/img/Frame_291.png",
-            "/img/Frame_292.png",
-            "/img/Frame_293.png"
+            "img/Frame_291.png",
+            "img/Frame_292.png",
+            "img/Frame_293.png"
         ];
 
         const drop = document.createElement("img");
