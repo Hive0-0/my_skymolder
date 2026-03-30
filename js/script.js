@@ -3,23 +3,23 @@ const factory = document.querySelector(".factory")
 if(factory){
 
     const base = document.createElement("img")
-    base.src = "/img/Frame_274.png"
+    base.src = "img/Frame_274.png"
     base.className = "factory-base"
 
     const p1 = document.createElement("img")
-    p1.src = "/img/Frame_275.png"
+    p1.src = "img/Frame_275.png"
     p1.className = "factory-part"
 
     const p2 = document.createElement("img")
-    p2.src = "/img/Frame_278.png"
+    p2.src = "img/Frame_278.png"
     p2.className = "factory-part part-278"
 
     const p3 = document.createElement("img")
-    p3.src = "/img/Frame_281.png"
+    p3.src = "img/Frame_281.png"
     p3.className = "factory-part part-281"
 
     const p4 = document.createElement("img")
-    p4.src = "/img/Frame_280.png"
+    p4.src = "img/Frame_280.png"
     p4.className = "factory-part part-280"
     factory.append(base,p1,p2,p3,p4)
 
