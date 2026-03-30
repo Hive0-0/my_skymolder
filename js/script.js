@@ -320,7 +320,7 @@ if (fragmentsScene) {
             const zoneRect = zone.getBoundingClientRect();
             const cardRect = activeCard.getBoundingClientRect();
 
-            // Проверяем центр карточки
+            
             const centerX = cardRect.left + cardRect.width / 2;
             const centerY = cardRect.top + cardRect.height / 2;
 
@@ -332,18 +332,18 @@ if (fragmentsScene) {
 
             if (inside && activeCard.dataset.target === zone.dataset.zone) {
 
-                // 1. ОЧИЩАЕМ атрибут style полностью. Убираем left, top, transform в пикселях.
+                
                 activeCard.removeAttribute('style');
 
-                // 2. Перемещаем карточку в зону в DOM
+               
                 zone.appendChild(activeCard);
 
-                // 3. Обновляем классы
+                
                 activeCard.classList.remove("is-dragging");
                 activeCard.classList.add("is-placed");
                 zone.classList.add("is-filled");
 
-                // 4. Запрещаем дальнейшее перетаскивание
+               
                 activeCard.style.pointerEvents = "none";
 
                 placedCorrectly = true;
@@ -351,10 +351,9 @@ if (fragmentsScene) {
         });
 
         if (!placedCorrectly) {
-            // Если не попали — сбрасываем состояние перетаскивания
+            
             activeCard.classList.remove("is-dragging");
-            // Если нужно, чтобы карточка возвращалась на место при промахе,
-            // здесь нужно добавить сброс координат (left/top) к начальным.
+            
         }
 
         const placedCount = fragmentsScene.querySelectorAll(".drag-card.is-placed").length;
