@@ -1,0 +1,1249 @@
+/* =====================================================
+   BASE / RESET
+===================================================== */
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    touch-action:manipulation;
+
+}
+
+body{
+    margin:0;
+    font-family:'IBM Plex Sans Condensed',sans-serif;
+    overflow-x:hidden;
+}
+
+.section{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.scene{
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+
+/* =====================================================
+   FONTS
+===================================================== */
+
+
+@font-face {
+    font-family: 'IBM Plex Sans Condensed';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/IBM_cyrillic-ext.woff2') format('woff2');
+    unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+
+@font-face {
+    font-family: 'IBM Plex Sans Condensed';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/IBM_latin.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
+/* =====================================================
+   1 ЭКРАН
+===================================================== */
+
+.rain{
+    display:block;
+}
+
+
+.top{
+    background:linear-gradient(#071F45,#2F73BA);
+    padding:clamp(20px,4vw,40px) clamp(20px,6vw,60px);
+    position:relative;
+}
+
+h2{
+    text-align:left;
+    color:white;
+    font-weight:400;
+    margin:0;
+    font-size:clamp(28px,5vw,48px);
+}
+
+.factory{
+    bottom:19vh;
+    left:50%;
+    transform:translateX(-50%);
+    width:90vw;
+    max-width:none;
+    aspect-ratio:1400/420;
+    position:relative;
+    z-index:1;
+}
+
+
+.hero-brand{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    font-family:'IBM Plex Sans Condensed', sans-serif;
+    font-weight:700;
+    font-size:clamp(80px, 18vw, 300px);
+    color:#1B2B6B;
+    opacity:0.25;
+    white-space:nowrap;
+    pointer-events:none;
+
+}
+
+
+.factory-base{
+    position:absolute;
+    bottom: -92%;
+    left:0;
+    max-width:100%;
+    height:auto;
+    z-index:1;
+}
+
+.factory-part{
+    position:absolute;
+    bottom: -96%;
+    left:0;
+    width:100%;
+    height:auto;
+    z-index:3;
+    opacity:0;
+    pointer-events:none;
+    transition:0.25s;
+}
+
+.shop{
+    position:absolute;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.shop:hover{
+    filter:brightness(.55);
+}
+
+.shop1{
+    left:120px;
+    bottom:0;
+    width:200px;
+}
+
+.shop2{
+    left:460px;
+    bottom:0;
+    width:450px;
+}
+
+.shop3{
+    left:970px;
+    bottom:0;
+    width:220px;
+}
+
+.shop img{
+    width:100%;
+    display:block;
+}
+
+.part-281{
+    bottom:-115%;
+    left:29%;
+}
+
+.part-280{
+    bottom:-154%;
+    left:47.8%;
+}
+
+.part-278{
+    bottom:-84%;
+    left:-7.7%;
+}
+
+/* =====================================================
+   2 ЭКРАН (CLOUDS / BUBBLES)
+===================================================== */
+
+.clouds{
+    background:linear-gradient(#2D6EB4,#5FB6EB);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    min-height:100vh;
+}
+
+
+.cloud-strip{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:80px;
+    background:#0B2953;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding-right:60px;
+}
+
+.cloud-strip span{
+    color:white;
+    font-size:40px;
+}
+
+.bubbles{
+    position:absolute;
+    top:80px;
+    left:0;
+    width:100%;
+    height:60vh;
+    padding:4vh 6vw;
+    box-sizing:border-box;
+    z-index:10;
+}
+
+
+.bubble{
+    position:absolute;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.bubble img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    pointer-events:none;
+}
+
+
+.bubble.pop{
+    transform:scale(1.6);
+    opacity:0;
+}
+
+
+
+.cloud-text{
+    position:relative;
+    z-index:5;
+    width:600px;
+    color:white;
+    text-align: center;
+    font-size:24px;
+    line-height:1.4;
+}
+
+.hidden{
+    opacity:0;
+}
+
+.cloud-bottom{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:130%;
+    max-width:none;
+    pointer-events:none;
+}
+
+/* =====================================================
+   3–4 ЭКРАН (FREEZE + DRAG)
+===================================================== */
+
+.freeze{
+    background: linear-gradient(#5CB1E8, #A0DAFF);
+    overflow: hidden;
+    display:block;
+    position:relative;
+}
+
+.freeze-strip{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #0B2953;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    box-sizing: border-box;
+    z-index: 5;
+    justify-content: end;
+}
+
+.freeze-strip span{
+    color: white;
+    font-size: 40px;
+    line-height: 1;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    text-transform: lowercase;
+}
+
+.freeze-content{
+    display:grid;
+    align-items:stretch;
+    grid-template-columns: 1fr minmax(160px,220px);
+    width:100%;
+    min-height:calc(100vh - 80px);
+}
+
+.freeze-field{
+    position:relative;
+    width:100%;
+    height:100%;
+    padding:6vw;
+    overflow:hidden;
+}
+
+
+.particle img{
+    width:clamp(60px,8vw,140px);
+    height:auto;
+}
+
+.particle{
+    position:absolute;
+}
+
+.drop,
+.snow{
+    position:absolute;
+    transition:0.4s;
+}
+.freeze-drop{
+    width:140px;
+}
+
+.freeze-snow{
+    width:160px;
+}
+
+.p1{ left:6%; top:12%; }
+.p2{ left:18%; top:18%; }
+.p3{ left:30%; top:10%; }
+.p4{ left:45%; top:20%; }
+.p5{ left:60%; top:12%; }
+
+.p6{ left:10%; top:40%; }
+.p7{ left:22%; top:50%; }
+.p8{ left:36%; top:45%; }
+.p9{ left:50%; top:55%; }
+.p10{ left:65%; top:42%; }
+
+.p11{ left:15%; top:65%; }
+.p12{ left:30%; top:68%; }
+.p13{ left:48%; top:65%; }
+.p14{ left:62%; top:68%; }
+
+.thermometer{
+    background:#153661;
+    border-left:4px solid white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    z-index:5;
+    width:100%;
+    max-width:220px;
+    min-width:140px;
+    height: 94%;
+    padding:20px 10px;
+}
+
+.thermo-inner{
+    position: relative;
+    width:80%;
+    height:100%;
+    border: 4px solid white;
+    box-sizing: border-box;
+}
+
+.thermo-line{
+    position: absolute;
+    top: 56px;
+    bottom: 56px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    background: #F2F2F2;
+}
+
+.thermo-scale{
+    position: absolute;
+    inset: 0;
+    color: white;
+    font-size: 28px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    pointer-events: none;
+}
+
+.tminus{
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tzero{
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+}
+
+.tplus{
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.slider{
+    position: absolute;
+    left: 50%;
+    bottom: 70px;
+    transform: translateX(-50%);
+    width: 88px;
+    height: 6px;
+    background: #6266E3;
+    border-radius: 0;
+    cursor: grab;
+    z-index: 3;
+}
+
+
+.freeze-field.frozen .drop{
+    opacity:0;
+}
+
+.freeze-field.frozen .snow{
+    opacity:1;
+}
+
+
+.fragments{
+    background:linear-gradient(#9DD9FE,#D9EFFF);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-height:120vh;
+}
+
+
+.rain-strip{
+    background:#99ABFA;
+    height:80px;
+    width:100%;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+}
+
+.rain-marquee{
+    white-space:nowrap;
+    font-family:'IBM Plex Sans Condensed', sans-serif;
+    font-weight:400;
+    font-size:40px;
+    color:white;
+    animation:marquee 18s linear infinite;
+}
+
+@keyframes marquee{
+    from{transform:translateX(0)}
+    to{transform:translateX(-100%)}
+}
+
+
+.big-snow{
+    position:absolute;
+    left:0;
+    top:0;
+    width:80%;
+    height:80%;
+    object-fit:contain;
+    opacity:0;
+    transform:scale(.9);
+    transition:0.6s;
+    pointer-events:none;
+}
+
+.freeze-field.frozen .big-snow{
+    opacity:1;
+    transform:scale(1);
+}
+
+.freeze-field.frozen .drop{
+    opacity:0;
+}
+
+
+/* =====================================================
+   DRAG & INFO
+===================================================== */
+
+
+
+.fragments-scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url('../img/Frame_282.png') no-repeat center;
+    background-size: contain;
+    z-index: 20;
+    overflow: hidden;
+}
+
+
+.drop-zone {
+    width: 160px;
+    height: 160px;
+    border: 2px solid #000;
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #000;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.drop-zone .drag-card.is-placed {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+}
+
+.drop-zone .drag-card.is-placed img {
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+
+.drag-card:not(.is-placed) {
+    width: 200px;
+    height: 200px;
+}
+.drag-card:not(.is-placed) img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.drop-zone.is-filled {
+    color: transparent !important;
+    font-size: 0 !important;
+}
+
+.drag-card {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    cursor: grab;
+    z-index: 20;
+    touch-action: none;
+}
+
+.fragments .info-box {
+    width: min(320px, 40vw) !important;
+    max-width: none !important;
+    font-size: clamp(12px, 1.1vw, 16px) !important;
+    padding: 15px !important;
+    border-radius: 15px !important;
+    line-height: 1.3 !important;
+}
+
+.drag-card img {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.drag-card.is-dragging {
+    cursor: grabbing;
+    z-index: 1000;
+}
+
+[data-zone="layers"]  { left: 35%; top: 15%; }
+[data-zone="drops"]   { left: 60%; top: 40%; }
+[data-zone="surface"] { left: 30%; top: 65%; }
+
+
+
+.info-box {
+    position: absolute;
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 300px;
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s ease;
+    z-index: 10;
+}
+
+.info1 {
+    top: 20%;
+    right: 5%;
+}
+
+.info2 {
+    bottom: 15%;
+    left: 5%;
+}
+
+.info-box.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+[data-zone] {
+    position: absolute;
+}
+
+@media (min-width: 901px) {
+
+    .zone-layers  { left: 35%; top: 15%; }
+    .zone-drops   { left: 60%; top: 40%; }
+    .zone-surface { left: 30%; top: 65%; }
+    .drag-layers  { left: 10%; top: 20%; }
+    .drag-drops   { left: 10%; bottom: 15%; }
+    .drag-surface { right: 10%; bottom: 15%; }
+    .is-filled .drag-drops { left: -39%!important; bottom: 27%!important; }
+    .is-filled .drag-surface { left: -24%!important; bottom: 27%!important; }
+    .is-filled .drag-layers { left: -20%!important; top: -30%!important; }
+
+}
+
+@media (max-width: 900px) {
+
+    .drag-card { width: 110px; height: 110px; }
+    .drop-zone { width: 120px; height: 120px; font-size: 12px;}
+    .zone-layers  { left: 15%; top: 10%; }
+    .zone-drops   { right: 15%; top: 35%; }
+    .zone-surface { left: 20%; bottom: 15%; }
+}
+
+/* =====================================================
+   RAIN SCREEN
+===================================================== */
+
+
+.rain{
+    background:linear-gradient(#A0DAFF,#ffffff);
+    position:relative;
+    overflow:hidden;
+    display:block;
+}
+
+.rain-scene{
+    position:relative;
+    width:100%;
+    height:100vh;
+}
+
+
+.rain-top-cloud{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:300px;
+    z-index:20;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+}
+
+.rain-top-cloud img{
+    width:100%;
+    display:block;
+    pointer-events:none;
+}
+
+
+
+.rain-factory{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:80vw;
+    max-width:1200px;
+    z-index:3;
+}
+
+
+
+.rain-container{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+
+
+
+.raindrop{
+    position:absolute;
+    width:clamp(66px,2.8vw,82px);
+    opacity:.95;
+    animation:rainFall linear forwards;
+}
+.rain-title{
+    position:absolute;
+    top:60%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    color:#98C8FF;
+    font-weight:400;
+    font-size:clamp(36px, 4vw, 72px);
+    z-index:2;
+    text-align:center;
+    white-space:nowrap;
+}
+
+.factory-wrap{
+    position:absolute;
+    bottom:0;
+    z-index:12;
+    cursor:pointer;
+}
+
+.factory-left-wrap{
+    left: -2%;
+    bottom: -3%;
+    height:48vh;
+}
+
+.factory-right-wrap{
+    right: -2%;
+    bottom: -2%;
+    height:48vh;
+}
+
+.factory-left,
+.factory-right{
+    display:block;
+    height:100%;
+    width:auto;
+    transition:filter .3s ease, opacity .3s ease;
+}
+
+.factory-label{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease;
+}
+
+.factory-wrap:hover > .factory-left,
+.factory-wrap:hover > .factory-right{
+    opacity:0;
+}
+
+.factory-left-wrap:hover .left-label,
+.factory-right-wrap:hover .right-label{
+    opacity:1;
+}
+
+.right-label{
+    inset: 8% 0;
+}
+
+.left-label{
+    inset: 5% 3%;
+    width: 93%;
+    height: 90%;
+}
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+
+@keyframes rainFall{
+
+    0%{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+    70%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(85vh);
+        opacity:0;
+    }
+
+}
+
+
+.raindrop.float{
+    animation:floatDrop 3s ease-in-out infinite;
+}
+
+@keyframes floatDrop{
+    0%{ transform:translateY(0) }
+    50%{ transform:translateY(-12px) }
+    100%{ transform:translateY(0) }
+}
+
+
+
+@keyframes cardSwing {
+
+    0%   { transform: rotate(-3deg) translateY(0px); }
+    50%  { transform: rotate(3deg) translateY(-6px); }
+    100% { transform: rotate(-3deg) translateY(0px); }
+
+}
+
+.drag-card:not(.is-dragging):not(.is-placed) {
+    animation: cardSwing 3s ease-in-out infinite;
+    transform-origin: center;
+}
+
+
+.circle{
+    position:absolute;
+    border:2px solid rgba(255,255,255,0.6);
+    border-radius:50%;
+    animation: circleFloat 6s ease-in-out infinite;
+}
+
+
+
+
+.c2{
+    width:90px;
+    height:90px;
+    right:22%;
+    top:30%;
+}
+
+.c3{
+    width:110px;
+    height:110px;
+    left:28%;
+    bottom:20%;
+}
+
+.c4{
+    width:140px;
+    height:140px;
+    right:35%;
+    bottom:12%;
+}
+
+
+
+@keyframes circleFloat {
+
+    0%{
+        transform: translateY(0px) scale(1);
+    }
+
+    50%{
+        transform: translateY(-18px) scale(1.05);
+    }
+
+    100%{
+        transform: translateY(0px) scale(1);
+    }
+
+}
+
+
+.drag-card.is-dragging{
+    animation:none;
+}
+
+
+/* =====================================================
+   ADAPTIVE
+===================================================== */
+
+
+
+@media (max-width:900px){
+
+    .particle img{
+        width:8vw;
+        max-width:140px;
+    }
+
+}
+
+
+
+@media (max-width:768px){
+
+    .cloud-bottom{
+        bottom:0;
+        width:180%;
+    }
+
+    .particle img{
+        width:22vw;
+        max-width:none;
+    }
+
+    .cloud-text{
+        width:90%;
+        font-size:20px;
+    }
+
+
+    .bubble{
+        transform:scale(.8);
+    }
+
+    .rain-top-cloud{
+        height:30vh;
+    }
+
+    .raindrop{
+        width:4vw;
+    }
+
+    .rain-title{
+        font-size:32px;
+        bottom:10vh;
+    }
+
+    .factory-left,
+    .factory-right{
+        width:40vw;
+    }
+
+    [data-zone="layers"]{
+        left:10%;
+        top:15%;
+    }
+
+    [data-zone="drops"]{
+        right:10%;
+        top:40%;
+    }
+
+    [data-zone="surface"]{
+        left:20%;
+        bottom:15%;
+    }
+
+
+    h2{
+        font-size:22px;
+    }
+
+    .cloud-strip span{
+        font-size:22px;
+    }
+
+    .freeze-strip span{
+        font-size:22px;
+    }
+
+    .rain-marquee{
+        font-size:22px;
+    }
+
+    .cloud-text{
+        font-size:16px;
+    }
+
+    .info-box{
+        font-size:14px;
+    }
+
+    .rain-title{
+        font-size:24px;
+    }
+
+    .freeze-content{
+        grid-template-columns: 1fr;
+    }
+
+    .freeze-field{
+        padding:40px 20px;
+        height:60vh;
+    }
+
+    .particle img{
+        width:80px;
+    }
+
+    .thermometer{
+        height:35vh;
+        border-left:none;
+        border-top:4px solid white;
+    }
+
+    .thermo-inner{
+        width:120px;
+        height:100%;
+    }
+
+    .slider{
+        width:70px;
+    }
+
+
+}
+
+
+@media (max-width:1800px){
+
+    .factory{
+        transform: translateX(-50%);
+    }
+
+    .hero-brand{
+        font-size: clamp(80px, 12vw, 180px);
+    }
+
+}
+
+
+.slider{
+    touch-action: none;
+}
+
+.scene{
+    overflow:hidden;
+}
+
+
+
+
+.rotate-device{
+    position:fixed;
+    inset:0;
+    background:#0B2953;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    z-index:9999;
+    display:none;
+}
+
+@media (max-width:900px) and (orientation:portrait){
+
+    .rotate-device{
+        display:flex;
+    }
+
+    body{
+        overflow:hidden;
+    }
+
+    .section{
+        display:none;
+    }
+
+}
+
+
+@media (max-width:900px) and (orientation:landscape){
+
+
+    :root{
+        --cloud-square:16vw;
+    }
+
+    .cloud-scene{
+        height:calc(100vh - 80px);
+        touch-action:none;
+    }
+
+    .freeze-content{
+        grid-template-columns: 3fr 1fr;
+    }
+
+    .freeze-scene{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        overflow:hidden;
+    }
+
+    .freeze-field{
+        flex:1;
+        position:relative;
+        overflow:hidden;
+    }
+
+
+    .drop{
+        bottom:auto;
+        max-height:12vh;
+    }
+
+    .snow{
+        max-width:10vw;
+    }
+
+    .thermometer{
+        width:20vw;
+        min-width:110px;
+        max-width:160px;
+        height:94%;
+        flex-shrink:0;
+        right:-13% !important;
+        left:auto !important;
+        margin:0 !important;
+        transform:none !important;
+    }
+
+    .thermo-inner{
+        width:100%;
+    }
+
+    .slider{
+        width:100%;
+    }
+
+
+    .zone-layers{
+        left:36%;
+        top:14%;
+    }
+
+    .zone-drops{
+        right:14%;
+        top:38%;
+    }
+
+    .zone-surface{
+        left:32%;
+        bottom:10%;
+    }
+
+    .drag1{
+        left:3%;
+        top:10%;
+    }
+
+    .drag2{
+        left:3%;
+        bottom:8%;
+    }
+
+    .drag3{
+        right:3%;
+        bottom:8%;
+    }
+
+
+    .zone-layers{
+        left:38%;
+        top:12%;
+    }
+
+    .zone-drops{
+        right:12%;
+        top:40%;
+    }
+
+    .zone-surface{
+        left:34%;
+        bottom:10%;
+    }
+
+    .bubbles{
+        top:80px;
+        height: 80vh;
+        overflow:hidden;
+    }
+
+    .cloud-bottom{
+        position:absolute;
+        bottom:0;
+        left:50%;
+        transform:translateX(-50%);
+        width:140%;
+    }
+
+    .bubble{
+        transform:scale(.65);
+    }
+
+
+    .freeze-field img{
+        transform:scale(.75);
+    }
+
+    .thermo-inner{
+        height:100%;
+    }
+
+    .drag-layers  { left: 3%; top: 12%; }
+    .drag-drops   { left: 3%; bottom: 8%; }
+    .drag-surface { right: 3%; bottom: 8%; }
+
+
+    .is-filled .drag-layers  { left: -27%; top: -48%; }
+    .is-filled .drag-drops   { left: -65%; bottom: 48%; }
+    .is-filled .drag-surface { right: 25%; bottom: 19%; }
+
+
+    .drag-card, .drop-zone {
+        width: 16vw !important;
+        height: 16vw !important;
+        min-width: 90px;
+        min-height: 90px;
+    }
+
+    .rain-title{
+        top: 75%;
+    }
+
+}
+
+
+
+
+.freeze-field{
+    position:relative;
+    min-height:70vh;
+    overflow:hidden;
+}
